@@ -6,7 +6,7 @@ using TCP Modbus to send fed-in energy from Kostal Plenticore 10 to iDM AERO SLM
 (iDM Option "TCP Modbus" or "Gebäudeleittechnik/Smartfox" in German Version)
 
 ### Linux usage (you might want to use directly with cron)
-i
+
 adjust IPs in kostal_idm.py file
 
 ```python3 kostal_idm.py```
