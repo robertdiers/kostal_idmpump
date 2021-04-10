@@ -33,25 +33,56 @@ if __name__ == "__main__":
         #feed_in_limit=1     
         #no more changes required
         
-        print ("##### reading KOSTAL", inverter_ip)
+        print ("##### KOSTAL IP: ", inverter_ip)
         inverterclient = ModbusTcpClient(inverter_ip,port=inverter_port)            
         inverterclient.connect()
         
-        gridvalue = ReadFloat(inverterclient,108,71)
-        print ("##### gridvalue: ", gridvalue)
+        send0 = 0
+                
+        grid = ReadFloat(inverterclient,108,71)
+        print ("##### grid: ", grid)
+        if grid > 0:
+            print ("##### grid: consumption")
+            send0 = 1
+        else:
+            print ("##### grid: feed-in")
+        
+        battery = ReadFloat(inverterclient,200,71)
+        print ("##### battery: ", battery)
+        if battery > 0:
+            print ("##### battery: discharge")
+            send0 = 1
+        else:
+            print ("##### battery: charge")
+        
+        consumptionbat = ReadFloat(inverterclient,106,71)
+        print ("##### consumption battery: ", consumptionbat)
+        consumptiongrid = ReadFloat(inverterclient,108,71)
+        print ("##### consumption grid: ", consumptiongrid)
+        consumptionpv = ReadFloat(inverterclient,116,71)
+        print ("##### consumption pv: ", consumptionpv)
+        consumption_total = consumptionbat + consumptiongrid + consumptionpv
+        print ("##### consumption: ", consumption_total)
+        
+        inverter = ReadFloat(inverterclient,100,71)
+        print ("##### inverter: ", inverter)  
+        
+        #this is not exact, but enough for us :-)
+        powerToGrid = round(inverter - consumption_total,1)
+        print ("##### powerToGrid: ", powerToGrid)         
         
         inverterclient.close()       
         
         #feed in must be above our limit
-        feed_in = -gridvalue;
-        if feed_in > feed_in_limit:
+        feed_in = powerToGrid;
+        if feed_in > feed_in_limit and send0 == 0:
             print ("##### feed-in reached: ", feed_in)               
             feed_in = feed_in/1000
         else:
-            print ("##### feed-in not reached: ", feed_in)  
+            print ("##### send ZERO: ", feed_in)  
             feed_in = 0
         
-        print ("##### send to iDM: ", idm_ip)
+        print ("##### iDM IP: ", idm_ip)
         idmclient = ModbusTcpClient(idm_ip,port=idm_port)            
         idmclient.connect()        
        
