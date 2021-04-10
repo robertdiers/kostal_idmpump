@@ -39,13 +39,13 @@ if __name__ == "__main__":
         
         send0 = 0
                 
-        grid = ReadFloat(inverterclient,108,71)
-        print ("##### grid: ", grid)
-        if grid > 0:
-            print ("##### grid: consumption")
-            send0 = 1
-        else:
-            print ("##### grid: feed-in")
+        #grid = ReadFloat(inverterclient,108,71)
+        #print ("##### grid: ", grid)
+        #if grid > 0:
+            #print ("##### grid: consumption")
+            #send0 = 1
+        #else:
+            #print ("##### grid: feed-in")
         
         battery = ReadFloat(inverterclient,200,71)
         print ("##### battery: ", battery)
