@@ -35,25 +35,7 @@ if __name__ == "__main__":
         
         print ("##### KOSTAL IP: ", inverter_ip)
         inverterclient = ModbusTcpClient(inverter_ip,port=inverter_port)            
-        inverterclient.connect()
-        
-        send0 = 0
-                
-        #grid = ReadFloat(inverterclient,108,71)
-        #print ("##### grid: ", grid)
-        #if grid > 0:
-            #print ("##### grid: consumption")
-            #send0 = 1
-        #else:
-            #print ("##### grid: feed-in")
-        
-        battery = ReadFloat(inverterclient,200,71)
-        print ("##### battery: ", battery)
-        if battery > 0:
-            print ("##### battery: discharge")
-            send0 = 1
-        else:
-            print ("##### battery: charge")
+        inverterclient.connect()       
         
         consumptionbat = ReadFloat(inverterclient,106,71)
         print ("##### consumption battery: ", consumptionbat)
@@ -64,12 +46,28 @@ if __name__ == "__main__":
         consumption_total = consumptionbat + consumptiongrid + consumptionpv
         print ("##### consumption: ", consumption_total)
         
-        inverter = ReadFloat(inverterclient,100,71)
-        print ("##### inverter: ", inverter)  
+        #inverter = ReadFloat(inverterclient,100,71)
+        #print ("##### inverter: ", inverter) 
+        #inverter_phase1 = ReadFloat(inverterclient,156,71)
+        #print ("##### inverter_phase1: ", inverter_phase1)  
+        #inverter_phase2 = ReadFloat(inverterclient,162,71)
+        #print ("##### inverter_phase2: ", inverter_phase2)  
+        #inverter_phase3 = ReadFloat(inverterclient,168,71)
+        #print ("##### inverter_phase3: ", inverter_phase3)   
+        #inverter = inverter_phase1 + inverter_phase2 + inverter_phase3
+        #print ("##### inverter: ", inverter)
+        inverter = ReadFloat(inverterclient,172,71)
+        print ("##### inverter: ", inverter)         
         
         #this is not exact, but enough for us :-)
         powerToGrid = round(inverter - consumption_total,1)
-        print ("##### powerToGrid: ", powerToGrid)         
+        print ("##### powerToGrid: ", powerToGrid)   
+        
+        battery = ReadFloat(inverterclient,200,71)
+        print ("##### battery: ", battery)
+        if battery > 0.1:
+            print ("##### battery: discharge")
+            powerToGrid = -1    
         
         inverterclient.close()       
         
