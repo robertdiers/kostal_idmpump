@@ -75,7 +75,7 @@ if __name__ == "__main__":
         
         #feed in must be above our limit
         feed_in = powerToGrid;
-        if feed_in > feed_in_limit and send0 == 0:
+        if feed_in > feed_in_limit:
             print ("##### feed-in reached: ", feed_in)               
             feed_in = feed_in/1000
         else:
