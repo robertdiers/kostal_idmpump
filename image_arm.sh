@@ -1,2 +1,2 @@
-sudo docker build --tag robertdiers/kostalidm:arm .
-sudo docker push robertdiers/kostalidm:arm
+docker build --tag robertdiers/kostalidm:arm .
+docker push robertdiers/kostalidm:arm
