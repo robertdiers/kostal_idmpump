@@ -9,6 +9,7 @@ RUN pip3 install configparser pymodbus
 COPY kostal_idm.py /app/kostal_idm.py
 COPY kostal_idm.ini /app/kostal_idm.ini
 COPY kostal_idm.sh /app/kostal_idm.sh
+COPY entrypoint.sh /app/entrypoint.sh
 COPY container_cron /etc/cron.d/container_cron
 
 # set workdir
@@ -21,4 +22,4 @@ RUN chmod 0644 /etc/cron.d/container_cron
 RUN crontab /etc/cron.d/container_cron
 
 # run the command on container startup
-CMD ["cron", "-f"]
+CMD ["/app/entrypoint.sh"]
