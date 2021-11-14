@@ -22,4 +22,4 @@ RUN chmod 0644 /etc/cron.d/container_cron
 RUN crontab /etc/cron.d/container_cron
 
 # run the command on container startup
-CMD ["/app/entrypoint.sh"]
+CMD ["entrypoint.sh"]

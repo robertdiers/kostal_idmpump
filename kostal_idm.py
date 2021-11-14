@@ -30,11 +30,8 @@ def WriteFloat(client,myadr_dec,feed_in,unitid):
 if __name__ == "__main__":  
     print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " START #####")
     try:
-        #local dev env check, read config
-        if os.environ.get('HOME') == '/home/coder':
-            config.read('kostal_idm.ini')
-        else:
-            config.read('/app/kostal_idm.ini')
+        #read config
+        config.read('kostal_idm.ini')
 
         #read config and default values
         inverter_ip = config['KostalSection']['inverter_ip']
