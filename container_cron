@@ -1,5 +1,4 @@
-SHELL=/bin/bash
 #* * * * * python3 /app/kostal_idm.py > /proc/1/fd/1 2>/proc/1/fd/2
 #* * * * * sleep 30; python3 /app/kostal_idm.py > /proc/1/fd/1 2>/proc/1/fd/2
-* * * * * /app/kostal_idm.sh > /proc/1/fd/1 2>/proc/1/fd/2
-* * * * * sleep 30; /app/kostal_idm.sh > /proc/1/fd/1 2>/proc/1/fd/2
+* * * * * bash -l -c /app/kostal_idm.sh > /proc/1/fd/1 2>/proc/1/fd/2
+* * * * * sleep 30; bash -l -c /app/kostal_idm.sh > /proc/1/fd/1 2>/proc/1/fd/2
