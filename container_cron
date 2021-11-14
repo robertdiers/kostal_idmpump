@@ -1,3 +1,3 @@
 SHELL=/bin/bash
-* * * * * python3 /app/kostal_idm.py > /proc/1/fd/1 2>/proc/1/fd/2
-* * * * * sleep 30; python3 /app/kostal_idm.py > /proc/1/fd/1 2>/proc/1/fd/2
+* * * * * . $HOME/.profile; python3 /app/kostal_idm.py > /proc/1/fd/1 2>/proc/1/fd/2
+* * * * * . $HOME/.profile; sleep 30; python3 /app/kostal_idm.py > /proc/1/fd/1 2>/proc/1/fd/2
