@@ -1,26 +1,9 @@
 # kostal_idmpump
-send feed-in value from Kostal Plenticore to iDM heat pump
-
-# kostal_idmpump
 using TCP Modbus to send fed-in energy from Kostal Plenticore 10 to iDM AERO SLM 6-17
 (iDM Option "TCP Modbus" or "Gebaedeleittechnik/Smartfox" in German Version)
 
-### Linux usage (you might want to use directly with cron)
-
-adjust IPs in kostal_idm.ini file
-
-```python3 kostal_idm.py```
+### Defaults
+plaese check IPs in kostal_idm.ini file, could be overridden by Docker env variables
 
 ### Docker usage
-adjust IPs in kostal_idm.ini file
-
-adjust execution in kostal_idm_cron file
-
-```sudo docker build -f Dockerfile -t kostal_idm:1.0 .```
-
-```sudo docker run -d --name kostal_idm --restart=always kostal_idm:1.0```
-
-```sudo docker logs kostal_idm```
-
-```sudo docker rm -f kostal_idm```
-
+https://hub.docker.com/repository/docker/robertdiers/kostalidm
