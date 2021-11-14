@@ -3,11 +3,11 @@ send feed-in value from Kostal Plenticore to iDM heat pump
 
 # kostal_idmpump
 using TCP Modbus to send fed-in energy from Kostal Plenticore 10 to iDM AERO SLM 6-17
-(iDM Option "TCP Modbus" or "Gebäudeleittechnik/Smartfox" in German Version)
+(iDM Option "TCP Modbus" or "Gebaedeleittechnik/Smartfox" in German Version)
 
 ### Linux usage (you might want to use directly with cron)
 
-adjust IPs in kostal_idm.py file
+adjust IPs in kostal_idm.ini file
 
 ```python3 kostal_idm.py```
 

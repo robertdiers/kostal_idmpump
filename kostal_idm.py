@@ -1,10 +1,16 @@
 #!/usr/bin/env python
 
 import pymodbus
+import configparser
+import os
+from datetime import datetime
 from pymodbus.client.sync import ModbusTcpClient
 from pymodbus.constants import Endian
 from pymodbus.payload import BinaryPayloadDecoder
 from pymodbus.payload import BinaryPayloadBuilder
+
+#read config
+config = configparser.ConfigParser()
 
 #-----------------------------------------
 # Routine to read a float    
@@ -22,29 +28,56 @@ def WriteFloat(client,myadr_dec,feed_in,unitid):
     client.write_registers(myadr_dec, payload, unit=unitid)
 
 if __name__ == "__main__":  
-    print ("##### START #####")
+    print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " START #####")
     try:
-        #change the IP address and port:
-        inverter_ip="192.168.1.5"
-        inverter_port="1502"
-        idm_ip="192.168.1.3"
-        idm_port="502"  
-        feed_in_limit=1000  
-        #feed_in_limit=1     
-        #no more changes required
+        #local dev env check, read config
+        if os.environ.get('HOME') == '/home/coder':
+            config.read('kostal_idm.ini')
+        else:
+            config.read('/app/kostal_idm.ini')
+
+        #read config and default values
+        inverter_ip = config['KostalSection']['inverter_ip']
+        inverter_port = config['KostalSection']['inverter_port']
+        idm_ip = config['IdmSection']['idm_ip']
+        idm_port = config['IdmSection']['idm_port']  
+        feed_in_limit = int(config['FeedinSection']['feed_in_limit']) 
+
+        # override with environment variables
+        if os.getenv('INVERTER_IP','None') != 'None':
+            inverter_ip = os.getenv('INVERTER_IP')
+            print ("using env: INVERTER_IP")
+        if os.getenv('INVERTER_PORT','None') != 'None':
+            inverter_port = os.getenv('INVERTER_PORT')
+            print ("using env: INVERTER_PORT")
+        if os.getenv('IDM_IP','None') != 'None':
+            idm_ip = os.getenv('IDM_IP')
+            print ("using env: IDM_IP")
+        if os.getenv('IDM_PORT','None') != 'None':
+            idm_port = os.getenv('IDM_PORT')
+            print ("using env: IDM_PORT")
+        if os.getenv('FEED_IN_LIMIT','None') != 'None':
+            feed_in_limit = os.getenv('FEED_IN_LIMIT')
+            print ("using env: FEED_IN_LIMIT")
+
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " inverter_ip: ", inverter_ip)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " inverter_port: ", inverter_port)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " idm_ip: ", idm_ip)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " idm_port: ", idm_port)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " feed_in_limit: ", feed_in_limit)
         
-        print ("##### KOSTAL IP: ", inverter_ip)
+        #connection Kostal
         inverterclient = ModbusTcpClient(inverter_ip,port=inverter_port)            
         inverterclient.connect()       
         
         consumptionbat = ReadFloat(inverterclient,106,71)
-        print ("##### consumption battery: ", consumptionbat)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " consumption battery: ", consumptionbat)
         consumptiongrid = ReadFloat(inverterclient,108,71)
-        print ("##### consumption grid: ", consumptiongrid)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " consumption grid: ", consumptiongrid)
         consumptionpv = ReadFloat(inverterclient,116,71)
-        print ("##### consumption pv: ", consumptionpv)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " consumption pv: ", consumptionpv)
         consumption_total = consumptionbat + consumptiongrid + consumptionpv
-        print ("##### consumption: ", consumption_total)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " consumption: ", consumption_total)
         
         #inverter = ReadFloat(inverterclient,100,71)
         #print ("##### inverter: ", inverter) 
@@ -57,16 +90,16 @@ if __name__ == "__main__":
         #inverter = inverter_phase1 + inverter_phase2 + inverter_phase3
         #print ("##### inverter: ", inverter)
         inverter = ReadFloat(inverterclient,172,71)
-        print ("##### inverter: ", inverter)         
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " inverter: ", inverter)         
         
         #this is not exact, but enough for us :-)
         powerToGrid = round(inverter - consumption_total,1)
-        print ("##### powerToGrid: ", powerToGrid)   
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " powerToGrid: ", powerToGrid)   
         
         battery = ReadFloat(inverterclient,200,71)
-        print ("##### battery: ", battery)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery: ", battery)
         if battery > 0.1:
-            print ("##### battery: discharge")
+            print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery: discharge")
             powerToGrid = -1    
         
         inverterclient.close()       
@@ -74,13 +107,13 @@ if __name__ == "__main__":
         #feed in must be above our limit
         feed_in = powerToGrid;
         if feed_in > feed_in_limit:
-            print ("##### feed-in reached: ", feed_in)               
+            print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " feed-in reached: ", feed_in)               
             feed_in = feed_in/1000
         else:
-            print ("##### send ZERO: ", feed_in)  
+            print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " send ZERO: ", feed_in)  
             feed_in = 0
         
-        print ("##### iDM IP: ", idm_ip)
+        #connection iDM
         idmclient = ModbusTcpClient(idm_ip,port=idm_port)            
         idmclient.connect()        
        
@@ -88,11 +121,11 @@ if __name__ == "__main__":
             
         #read from iDM
         idmvalue = ReadFloat(idmclient,74,1)
-        print ("##### iDM: ", idmvalue)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " iDM: ", idmvalue)
             
         idmclient.close()   
         
-        print ("##### END #####")
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " END #####")
         
     except Exception as ex:
         print ("ERROR :", ex)    
