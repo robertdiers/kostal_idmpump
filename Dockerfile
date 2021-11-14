@@ -8,6 +8,7 @@ RUN pip3 install configparser pymodbus
 # copy files
 COPY kostal_idm.py /app/kostal_idm.py
 COPY kostal_idm.ini /app/kostal_idm.ini
+COPY kostal_idm.sh /app/kostal_idm.sh
 COPY container_cron /etc/cron.d/container_cron
 
 # set workdir
