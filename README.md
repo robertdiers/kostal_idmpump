@@ -12,7 +12,7 @@ adjust IPs in kostal_idm.ini file
 ```python3 kostal_idm.py```
 
 ### Docker usage
-adjust IPs in kostal_idm.py file
+adjust IPs in kostal_idm.ini file
 
 adjust execution in kostal_idm_cron file
 
