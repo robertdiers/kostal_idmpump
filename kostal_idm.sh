@@ -1,6 +1,4 @@
 #!/bin/bash
-source $HOME/.bashrc
-source $HOME/.profile
 echo INVERTER_IP $INVERTER_IP
 echo INVERTER_PORT $INVERTER_PORT
 echo IDM_IP $IDM_IP
