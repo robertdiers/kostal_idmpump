@@ -10,3 +10,6 @@ https://hub.docker.com/repository/docker/robertdiers/kostalidm
 
 ### Development
 Please start Visual Studio Code Server using script vsc_start.sh, open http://localhost:8080 to code.
+
+### Blog
+https://robertdiers.medium.com/solar-energy-sending-feed-in-energy-amount-from-kostal-inverter-to-idm-heat-pump-using-tcp-modbus-d406ba1202c8
