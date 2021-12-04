@@ -28,7 +28,7 @@ def WriteFloat(client,myadr_dec,feed_in,unitid):
     payload = builder.to_registers() 
     client.write_registers(myadr_dec, payload, unit=unitid)
 
-# read status from Tasmota
+# write metric to graphite
 def WriteGraphite(graphite_ip, metric, value):
     if graphite_ip:
         graphyte.send(metric, value)

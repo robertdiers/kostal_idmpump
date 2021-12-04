@@ -5,6 +5,8 @@ using TCP Modbus to send fed-in energy from Kostal Plenticore 10 to iDM AERO SLM
 ### Defaults
 plaese check IPs in kostal_idm.ini file, could be overridden by Docker env variables
 
+Graphite usage is optional (metrics)
+
 ### Docker usage
 https://hub.docker.com/repository/docker/robertdiers/kostalidm
 
