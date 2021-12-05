@@ -97,7 +97,7 @@ if __name__ == "__main__":
         WriteGraphite(graphite_ip, 'solar.ksem.powertogrid', powerToGrid)
         
         battery = ReadFloat(inverterclient,200,71)
-        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery: ", battery)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery (A): ", battery)
         WriteGraphite(graphite_ip, 'solar.kostal.battery', battery)
         if battery > 0.1:
             print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery: discharge")
