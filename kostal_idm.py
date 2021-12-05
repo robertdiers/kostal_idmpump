@@ -122,7 +122,7 @@ if __name__ == "__main__":
         phase3 = ReadFloat(inverterclient,244,71)
         #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " phase3: ", phase3)   
         WriteGraphite(graphite_ip, 'solar.ksem.phase3', phase3)  
-        powerToGrid = round(phase1+phase2+phase3,2)
+        powerToGrid = round(phase1+phase2+phase3,1)
         print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " powerToGrid: ", powerToGrid)   
         WriteGraphite(graphite_ip, 'solar.ksem.powertogrid', powerToGrid)
         
