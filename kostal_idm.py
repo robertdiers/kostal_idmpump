@@ -80,39 +80,9 @@ if __name__ == "__main__":
         
         #connection Kostal
         inverterclient = ModbusTcpClient(inverter_ip,port=inverter_port)            
-        inverterclient.connect()       
+        inverterclient.connect()    
         
-        consumptionbat = ReadFloat(inverterclient,106,71)
-        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " consumption battery: ", consumptionbat)
-        WriteGraphite(graphite_ip, 'solar.kostal.consumption.battery', consumptionbat)
-        consumptiongrid = ReadFloat(inverterclient,108,71)
-        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " consumption grid: ", consumptiongrid)
-        WriteGraphite(graphite_ip, 'solar.kostal.consumption.grid', consumptiongrid)
-        consumptionpv = ReadFloat(inverterclient,116,71)
-        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " consumption pv: ", consumptionpv)
-        WriteGraphite(graphite_ip, 'solar.kostal.consumption.pv', consumptionpv)
-        consumption_total = consumptionbat + consumptiongrid + consumptionpv
-        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " consumption: ", consumption_total)
-        WriteGraphite(graphite_ip, 'solar.kostal.consumption.total', consumption_total)
-        
-        #inverter = ReadFloat(inverterclient,100,71)
-        #print ("##### inverter: ", inverter) 
-        #inverter_phase1 = ReadFloat(inverterclient,156,71)
-        #print ("##### inverter_phase1: ", inverter_phase1)  
-        #inverter_phase2 = ReadFloat(inverterclient,162,71)
-        #print ("##### inverter_phase2: ", inverter_phase2)  
-        #inverter_phase3 = ReadFloat(inverterclient,168,71)
-        #print ("##### inverter_phase3: ", inverter_phase3)   
-        #inverter = inverter_phase1 + inverter_phase2 + inverter_phase3
-        #print ("##### inverter: ", inverter)
-        inverter = ReadFloat(inverterclient,172,71)
-        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " inverter: ", inverter)   
-        WriteGraphite(graphite_ip, 'solar.kostal.inverter', inverter)      
-        
-        #this is not exact, but enough for us :-)
-        #powerToGrid = round(inverter - consumption_total,1)
-        #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " powerToGrid: ", powerToGrid)   
-        #WriteGraphite(graphite_ip, 'solar.kostal.powertogrid', powerToGrid)
+        #use KSEM phases to calculate the feed-in energy
         phase1 = ReadFloat(inverterclient,224,71)
         #print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " phase1: ", phase1)   
         WriteGraphite(graphite_ip, 'solar.ksem.phase1', phase1)  
