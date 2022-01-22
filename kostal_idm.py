@@ -92,7 +92,7 @@ if __name__ == "__main__":
         print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " timescaledb_username: ", timescaledb_username)
         print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " timescaledb_password: ", timescaledb_password)
 
-        #init Graphite if used
+        #init Timescaledb if used
         if timescaledb_ip:
             conn = psycopg2.connect(
                 host=timescaledb_ip,
