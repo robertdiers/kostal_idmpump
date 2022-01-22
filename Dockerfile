@@ -3,7 +3,7 @@ FROM debian:stable-slim
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install cron python3 python3-pip
-RUN pip3 install configparser pymodbus graphyte
+RUN pip3 install configparser pymodbus psycopg2-binary
 
 # copy files
 COPY kostal_idm.py /app/kostal_idm.py
