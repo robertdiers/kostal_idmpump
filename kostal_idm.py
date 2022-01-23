@@ -122,13 +122,25 @@ if __name__ == "__main__":
         print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " powerToGrid: ", powerToGrid)   
         WriteTimescaleDb(conn, 'solar_kostal_powertogrid', powerToGrid)
         
-        battery = ReadFloat(inverterclient,200,71)
-        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery (A): ", battery)
+        batteryamp = ReadFloat(inverterclient,200,71)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery (A): ", batteryamp)
+        batteryvolt = ReadFloat(inverterclient,216,71)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery (V): ", batteryvolt)
+        battery = round(batteryamp * batteryvolt, 2)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery (W): ", battery)
         WriteTimescaleDb(conn, 'solar_kostal_battery', battery)
-        if battery > 0.1:
+        if batteryamp > 0.1:
             print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery: discharge")
-            powerToGrid = -1    
-        
+            powerToGrid = -1
+            WriteTimescaleDb(conn, 'solar_kostal_batteryflag', 1)
+        elif batteryamp < -0.1:
+            WriteTimescaleDb(conn, 'solar_kostal_batteryflag', -1)
+        else:
+            WriteTimescaleDb(conn, 'solar_kostal_batteryflag', 0)
+        batterypercent = ReadFloat(inverterclient,210,71)
+        print (datetime.now().strftime("%d/%m/%Y %H:%M:%S") + " battery (%): ", batterypercent)
+        WriteTimescaleDb(conn, 'solar_kostal_batterypercent', (batterypercent/100))
+
         inverterclient.close()       
         
         #feed in must be above our limit

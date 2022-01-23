@@ -24,6 +24,20 @@ CREATE  TABLE solar_kostal_battery (
 
 SELECT create_hypertable('solar_kostal_battery', 'time');
 
+CREATE  TABLE solar_kostal_batterypercent ( 
+	"time"               timestamptz  NOT NULL  ,
+	"value"              double precision    
+ );
+
+SELECT create_hypertable('solar_kostal_batterypercent', 'time');
+
+CREATE  TABLE solar_kostal_batteryflag ( 
+	"time"               timestamptz  NOT NULL  ,
+	"value"              double precision    
+ );
+
+SELECT create_hypertable('solar_kostal_batteryflag', 'time');
+
 CREATE  TABLE solar_kostal_inverter ( 
 	"time"               timestamptz  NOT NULL  ,
 	"value"              double precision    
