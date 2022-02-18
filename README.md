@@ -24,12 +24,26 @@ CREATE  TABLE solar_kostal_battery (
 
 SELECT create_hypertable('solar_kostal_battery', 'time');
 
+ALTER TABLE solar_kostal_battery SET (
+ timescaledb.compress,
+ timescaledb.compress_segmentby = 'time'
+);
+
+SELECT add_compression_policy('solar_kostal_battery', INTERVAL '1 days');
+
 CREATE  TABLE solar_kostal_batterypercent ( 
 	"time"               timestamptz  NOT NULL  ,
 	"value"              double precision    
  );
 
 SELECT create_hypertable('solar_kostal_batterypercent', 'time');
+
+ALTER TABLE solar_kostal_batterypercent SET (
+ timescaledb.compress,
+ timescaledb.compress_segmentby = 'time'
+);
+
+SELECT add_compression_policy('solar_kostal_batterypercent', INTERVAL '1 days');
 
 CREATE  TABLE solar_kostal_batteryflag ( 
 	"time"               timestamptz  NOT NULL  ,
@@ -38,12 +52,26 @@ CREATE  TABLE solar_kostal_batteryflag (
 
 SELECT create_hypertable('solar_kostal_batteryflag', 'time');
 
+ALTER TABLE solar_kostal_batteryflag SET (
+ timescaledb.compress,
+ timescaledb.compress_segmentby = 'time'
+);
+
+SELECT add_compression_policy('solar_kostal_batteryflag', INTERVAL '1 days');
+
 CREATE  TABLE solar_kostal_inverter ( 
 	"time"               timestamptz  NOT NULL  ,
 	"value"              double precision    
  );
 
 SELECT create_hypertable('solar_kostal_inverter', 'time');
+
+ALTER TABLE solar_kostal_inverter SET (
+ timescaledb.compress,
+ timescaledb.compress_segmentby = 'time'
+);
+
+SELECT add_compression_policy('solar_kostal_inverter', INTERVAL '1 days');
 
 CREATE  TABLE solar_kostal_powertogrid ( 
 	"time"               timestamptz  NOT NULL  ,
@@ -52,9 +80,23 @@ CREATE  TABLE solar_kostal_powertogrid (
 
 SELECT create_hypertable('solar_kostal_powertogrid', 'time');
 
+ALTER TABLE solar_kostal_powertogrid SET (
+ timescaledb.compress,
+ timescaledb.compress_segmentby = 'time'
+);
+
+SELECT add_compression_policy('solar_kostal_powertogrid', INTERVAL '1 days');
+
 CREATE  TABLE solar_idm_feedin ( 
 	"time"               timestamptz  NOT NULL  ,
 	"value"              double precision    
  );
  
 SELECT create_hypertable('solar_idm_feedin', 'time');
+
+ALTER TABLE solar_idm_feedin SET (
+ timescaledb.compress,
+ timescaledb.compress_segmentby = 'time'
+);
+
+SELECT add_compression_policy('solar_idm_feedin', INTERVAL '1 days');
