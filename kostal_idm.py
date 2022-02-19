@@ -157,7 +157,7 @@ if __name__ == "__main__":
         idmclient.connect()        
        
         WriteFloat(idmclient,74,feed_in,1)
-        WriteTimescaleDb(conn, 'solar_idm_feedin', feed_in)
+        WriteTimescaleDb(conn, 'solar_idm_feedin', (feed_in*1000))
             
         #read from iDM
         idmvalue = ReadFloat(idmclient,74,1)
