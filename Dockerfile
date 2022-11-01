@@ -1,9 +1,8 @@
-FROM docker.io/debian:stable-slim
+FROM docker.io/debian:buster-slim
 
 RUN apt update
 RUN apt -y upgrade
-RUN apt -y install gcc
-RUN apt -y install cron python3 python3-pip libpq-dev python3-dev
+RUN apt -y install cron python3 python3-pip
 RUN pip3 install configparser pymodbus
 
 # copy files
