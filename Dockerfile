@@ -1,9 +1,9 @@
-FROM docker.io/debian:buster-slim
+FROM docker.io/debian:stable-slim
 
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install cron python3 python3-pip
-RUN pip3 install configparser pymodbus
+RUN pip3 install configparser pymodbus pyserial_asyncio pyserial
 
 # copy files
 COPY python /app/python

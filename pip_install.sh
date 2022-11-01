@@ -1,1 +1,1 @@
-pip3 install configparser pymodbus
+pip3 install configparser pymodbus pyserial_asyncio pyserial
