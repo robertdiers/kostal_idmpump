@@ -1,17 +1,16 @@
-FROM debian:stable-slim
+FROM docker.io/debian:stable-slim
 
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install gcc
 RUN apt -y install cron python3 python3-pip libpq-dev python3-dev
-RUN pip3 install configparser pymodbus psycopg2
+RUN pip3 install configparser pymodbus
 
 # copy files
-COPY kostal_idm.py /app/kostal_idm.py
-COPY kostal_idm.ini /app/kostal_idm.ini
-COPY kostal_idm.sh /app/kostal_idm.sh
-COPY entrypoint.sh /app/entrypoint.sh
-COPY container_cron /etc/cron.d/container_cron
+COPY python /app/python
+COPY shell/kostal-idm.sh /app/kostal-idm.sh
+COPY shell/entrypoint.sh /app/entrypoint.sh
+COPY shell/container_cron /etc/cron.d/container_cron
 
 # set workdir
 WORKDIR /app

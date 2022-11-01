@@ -1,2 +1,2 @@
-docker build --tag robertdiers/kostalidm:arm .
-docker push robertdiers/kostalidm:arm
+sudo docker build --no-cache --tag docker.io/robertdiers/kostalidm:arm .
+sudo docker push docker.io/robertdiers/kostalidm:arm

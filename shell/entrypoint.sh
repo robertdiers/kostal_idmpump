@@ -1,3 +1,4 @@
 printenv | grep -v "no_proxy" >> /etc/environment
-echo 'environment stored - starting cron'
+echo 'starting cron'
+cd /app
 cron -f
