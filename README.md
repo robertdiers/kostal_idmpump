@@ -9,6 +9,4 @@ plaese check IPs in kostal_idm.ini file, could be overridden by Docker env varia
 https://hub.docker.com/repository/docker/robertdiers/kostalidm
 
 ### create Docker image for your architecture
-* ./image_x64.sh
-* ./image_arm.sh
-* ./image_arm64.sh
+./image.sh
