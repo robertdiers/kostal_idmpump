@@ -8,6 +8,7 @@ plaese check IPs in kostal_idm.ini file, could be overridden by Docker env varia
 ### Docker usage
 
 environment variables:
+
 INVERTER_IP (default: 192.168.1.5)
 
 INVERTER_PORT (default: 1502)
