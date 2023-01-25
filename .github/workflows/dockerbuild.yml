@@ -39,6 +39,6 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
         push: true
         tags: ghcr.io/robertdiers/kostal_idmpump:${{ steps.docker-tag.outputs.tag }}
