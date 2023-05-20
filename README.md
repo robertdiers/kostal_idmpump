@@ -19,7 +19,7 @@ IDM_PORT (default: 502)
 
 FEED_IN_LIMIT (default: 500)
 
-docker run -d --restart always -e INVERTER_IP=192.168.1.5 -e IDM_IP=192.168.1.3 --name kostalidmpump ghcr.io/robertdiers/kostal_idmpump:1.0
+docker run -d --restart always -e INVERTER_IP=192.168.1.5 -e IDM_IP=192.168.1.3 --name kostalidmpump ghcr.io/robertdiers/kostal_idmpump:1.1
 
 ### create Docker image for your architecture
 ./image.sh
