@@ -10,14 +10,14 @@ from pymodbus.payload import BinaryPayloadBuilder
 # Routine to read a float    
 def readfloat(client,myadr_dec,unitid):
     r1=client.read_holding_registers(myadr_dec,2,slave=unitid)
-    FloatRegister = BinaryPayloadDecoder.fromRegisters(r1.registers, byteorder=Endian.Big, wordorder=Endian.Little)
+    FloatRegister = BinaryPayloadDecoder.fromRegisters(r1.registers, byteorder=Endian.BIG, wordorder=Endian.LITTLE)
     result_FloatRegister =round(FloatRegister.decode_32bit_float(),2)
     return(result_FloatRegister)   
 
 #----------------------------------------- 
 # Routine to write float
 def writefloat(client,myadr_dec,feed_in,unitid):
-    builder = BinaryPayloadBuilder(byteorder=Endian.Big, wordorder=Endian.Little)
+    builder = BinaryPayloadBuilder(byteorder=Endian.BIG, wordorder=Endian.LITTLE)
     builder.add_32bit_float( feed_in )
     payload = builder.to_registers() 
     client.write_registers(myadr_dec, payload, slave=unitid)
