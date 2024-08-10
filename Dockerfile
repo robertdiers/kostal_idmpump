@@ -3,6 +3,14 @@ FROM docker.io/debian:stable-slim
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install cron python3 python3-pip
+RUN python3 -m venv ~/.local --system-site-packages
+RUN ~/.local/bin/pip install configparser
+RUN ~/.local/bin/pip install pymodbus
+RUN ~/.local/bin/pip install pyserial_asyncio
+RUN ~/.local/bin/pip install pyserial
+
+RUN which python3
+
 RUN pip3 install configparser pymodbus pyserial_asyncio pyserial
 
 # copy files

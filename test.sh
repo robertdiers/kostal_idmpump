@@ -1,2 +1,2 @@
-sudo docker build --tag test .
-sudo docker run test
+sudo podman build --tag test .
+sudo podman run test
