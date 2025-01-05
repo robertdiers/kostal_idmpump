@@ -3,7 +3,7 @@ FROM docker.io/ubuntu:24.04
 RUN apt update
 RUN apt -y upgrade
 RUN apt -y install cron python3 python3-dev python3-pip
-RUN pip install pymodbus pyserial_asyncio pyserial --break-system-packages
+RUN pip install pymodbus==3.7.4 pyserial_asyncio pyserial --break-system-packages
 
 RUN which python3
 
